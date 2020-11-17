@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar">
+<head>
+
+    <meta charset="UTF-8">
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+    <title>Title</title>
+
+    <style>
+        *{
+            padding: 0px;
+            margin: 0px;
+        }
+        .borders {
+            border:1px solid black;
+        }
+
+        @media print {
+            @page {
+                size: 1mm 1mm;
+            }
+            body {
+                vertical-align: top;
+            }
+        }
+
+        hr {
+            border: 1px solid black;
+            margin: 0px;
+            padding: 0;
+        }
+
+        .table thead > tr > th { border-bottom: 1px solid black; }
+    </style>
+</head>
+<body style="margin: 0; padding: 0;">
+<div id="bill" >
+    <div class="container" id="pdf">
+        <div class="row" style="margin-left: 80px; margin-top: 0; padding: 0; ">
+            <div class="well col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3 borders" style="padding: 0px 15px;">
+
+                <div class="text-center ">
+                        <h1 style="margin: 0; padding: 0;">فاتورة مبيعات كورسيت<img src="../logo.png" width="50"></h1>
+                </div>
+
+
+
+                <div class="row">
+                    <hr>
+                    <div class="col-xs-6 col-sm-6 col-md-6 text-right" style="padding: 0px; padding-right: 30px; border-right:solid #000000;">
+
+                        <p>
+                            <em><strong>رقم الفاتورة: </strong><span id="bill_num"></span></em>
+                        </p>
+                        <p>
+                            <em> <strong>التاريخ : </strong> <span id="date"></span></em>
+                        </p>
+                        <br>
+                    </div>
+
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <address style="padding-right: 5px;">
+                            <strong>اسم العميل : </strong>
+                            <span id="client"></span>
+
+                            <br>
+                            <strong>العنوان: </strong>
+                            <b>
+                                <span id="state"></span>
+                            </b>
+                            / <span id="address"></span>
+
+                            <br>
+                            <strong title="Phone">رقم العميل:</strong>
+                            <span id="phone"></span>
+
+
+                        </address>
+                    </div>
+                    <hr>
+                </div>
+
+
+                <div class="row">
+
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th class="text-center">المنتج</th>
+                            <th class="text-center">المقاس</th>
+                            <th class="text-center">الكمية</th>
+                            <th class="text-center">الاجمالي</th>
+
+                        </tr>
+                        <tr>
+
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr>
+                            <td class="col-md-5"><em>
+                                <span id="product"></span>
+
+                            </em></td>
+                            <td class="col-md-1" style="text-align: center">
+                                <span id="size"></span>
+                            </td>
+                            <td class="col-md-1 text-center">
+                                <span id="amount"></span>
+
+                            </td>
+                            <td class="text-center text-danger"><strong>
+                                <span id="total"></span>   ج
+
+                            </strong></td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+
+                    <hr>
+
+                    <div class="row">
+
+                        <div class="col-xs-6 col-sm-6 col-md-6 text-right" style="border-right:solid #000000;">
+                            <p>
+                                <em><strong>اسم السيلز: </strong>
+                                    <span id="sales"></span>
+
+                                </em>
+                            </p>
+                            <p>
+                                <em> <strong>اسم الاكونت : </strong>
+                                    <span id="account"></span>
+
+                                </em>
+                            </p>
+                            <p>
+                                <em> <strong>اسم الصفحة : </strong>
+                                    <span id="page"></span>
+                                </em>
+                            </p>
+
+                        </div>
+
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <p style="padding: 5px;">
+                                <strong>ملاحظات : </strong>
+                                <br>
+                                <span id="note"></span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <br>
+                    <p class="text-center" style="font-size: large"><u><strong>في حالة رفض الاوردر يتم دفع مصاريف الشحن</strong></u></p>
+
+
+
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-success btn-lg btn-block" onclick="print_pdf()">اطبع الفاتورة</button>
+
+    <button class="btn btn-info btn-lg btn-block" onclick="go_back()">Go Back</button>
+
+    <form id="excel" action="excel.html" method="get" style="display: none;">
+        <input type="submit" value="Submit" >
+    </form>
+</div>
+
+<script>
+    line = get('num');
+
+    var fs = require('fs')
+    var Papa = require('papaparse');
+
+    // creating the sheet and load the data if exist
+    var sheet_data;
+    if(fs.existsSync("history/" + (get_day() + ".csv"))) {
+        let csv_data = fs.readFileSync("history/" + (get_day() + ".csv"), 'utf8', function (error, csv_data) {
+            if (error) throw error;
+        });
+
+        sheet_data = Papa.parse(csv_data).data;
+        for (let i = 0; i < sheet_data.length; i++) {
+            sheet_data[i].shift();
+        }
+    }
+
+    data = sheet_data[line]
+    show_bill(data)
+
+
+        function show_bill(data) {
+        var bill = document.getElementById('bill');
+
+        let note = document.getElementById('note')
+        note.innerHTML  = data[5];
+
+        let address = document.getElementById('address')
+        address.innerHTML  = data[8];
+
+        let state = document.getElementById('state')
+        state.innerHTML  = data[6];
+
+        let phone = document.getElementById('phone')
+        phone.innerHTML  = data[10];
+
+        let product = document.getElementById('product')
+        product.innerHTML  = data[1];
+
+        let size = document.getElementById('size')
+        size.innerHTML  = data[2];
+
+        let amount = document.getElementById('amount')
+        amount.innerHTML  = data[4];
+
+        let total = document.getElementById('total')
+        total.innerHTML  = data[3];
+
+        let sales = document.getElementById('sales')
+        sales.innerHTML  = data[12];
+
+        let account = document.getElementById('account')
+        account.innerHTML  = data[9];
+
+        let page = document.getElementById('page')
+        page.innerHTML  = data[11];
+
+        let client = document.getElementById('client')
+        client.innerHTML  = data[7];
+
+        let date = document.getElementById('date')
+        let today = new Date().toISOString().slice(0, 10)
+        date.innerHTML  = get_day();
+
+        let bill_num = document.getElementById('bill_num');
+        bill_num.innerHTML = get_bill_num();
+
+    }
+
+    function get(name){
+        if(name=(new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search))
+            return decodeURIComponent(name[1]);
+    }
+
+    function get_day() {
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+        return dd + '_' + mm + '_' + yyyy;
+    }
+
+    function print_pdf() {
+
+        var fs = require('fs')
+
+        if(fs.existsSync("history/" + "prints.txt")) {
+            fs.appendFileSync("history/" + "prints.txt", line + "\n",'utf8',(err) => {
+                if(err)
+                    console.log(err)
+            })
+
+        } else {
+
+            fs.writeFile("history/" + "prints.txt", line + "\n",'utf8',(err) => {
+                if(err)
+                    console.log(err)
+            })
+        }
+
+
+        var printContents = document.getElementById("pdf").innerHTML;
+        var originalContents = document.body.innerHTML;
+
+        document.body.innerHTML = printContents;
+
+        window.print();
+
+        document.body.innerHTML = originalContents;
+
+
+    }
+
+    function get_bill_num() {
+        let date = new Date();
+        currentHours = date.getHours();
+        currentHours = ("0" + currentHours).slice(-2);
+
+        currentminute = date.getMinutes();
+        currentminute = ("0" + currentminute).slice(-2);
+
+        currentsecond = date.getSeconds();
+        currentsecond = ("0" + currentsecond).slice(-2);
+
+        currentday = date.getDate();
+        currentday = ("0" + currentday).slice(-2);
+
+        currentmonth = date.getMonth() + 1;
+        currentmonth = ("0" + currentmonth).slice(-2)
+
+
+        let num = currentmonth + "" + currentday + "" + currentHours + "" + currentminute + "" + currentsecond;
+
+        return num
+    }
+
+    function go_back() {
+        document.getElementById('excel').submit();
+    }
+
+
+</script>
+
+</body>
+</html>
