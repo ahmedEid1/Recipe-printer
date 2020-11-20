@@ -12,8 +12,9 @@
 <hr>
 <hr>
 <h2>Application photos</h2>
-<img src="media/1.PNG" alt="the home page">
-<img src="media/2.PNG" alt="the print page">
-<img src="media/3.PNG" alt="the printing process">
-<img src="media/4.PNG" alt="button change colour after printing a column">
+<img title="the home page" src="media/1.PNG" alt="the home page">
+<img title="the print page" src="media/2.PNG" alt="the print page">
+<img title="the printing process" src="media/3.PNG" alt="the printing process">
+<img title="button change colour after printing a column" src="media/4.PNG" alt="button change colour after printing a column">
+<img title="clear all" src="media/5.PNG" alt="clear all">
 
