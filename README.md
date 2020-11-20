@@ -9,3 +9,11 @@
 <a href="https://dl.todesktop.com/201113xwuzwr3ux/builds/201114y795h96y1/windows/nsis/x64">Widows</a>
 <br>
 <a href="https://dl.todesktop.com/201113xwuzwr3ux/builds/201114y795h96y1/linux/appImage/x64">linux</a>
+<hr>
+<hr>
+<h2>Application photos</h2>
+<img src="media/1.PNG" alt="the home page">
+<img src="media/2.PNG" alt="the print page">
+<img src="media/3.PNG" alt="the printing process">
+<img src="media/4.PNG" alt="button change colour after printing a column">
+
