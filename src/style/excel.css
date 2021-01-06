@@ -1,0 +1,8 @@
+#excel, #print_pdf {
+    display: none;
+}
+
+#clear_all {
+    padding: 5px 5px ;
+    margin: 5px 5px;
+}

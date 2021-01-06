@@ -1,12 +1,12 @@
-var fs = require('fs')
-var Papa = require('papaparse');
+const fs = require('fs');
+const Papa = require('papaparse');
 
 // change buttons colors
 let printed = change_buttons_color();
 
 
-// creating the sheet and load the data if exist
-var sheet_data;
+// creating the sheet or load the data if exist
+let sheet_data;
 if(fs.existsSync("history/" + (get_day() + ".csv")) &&  fs.readFileSync("history/" + (get_day() + ".csv")).length !== 0) {
     let csv_data = fs.readFileSync("history/" + (get_day() + ".csv"), 'utf8', function (error, csv_data) {
         if (error) throw error;
@@ -22,23 +22,19 @@ if(fs.existsSync("history/" + (get_day() + ".csv")) &&  fs.readFileSync("history
         'طباعة', 'المنتج', 'المقاس', 'الاجمالي', 'الكمية', 'ملاحظة',  'المحافظة', 'اسم العميل',
         'العنوان'  , 'الاكونت', 'رقم العميل', 'الصفحة', 'السيلز', "م"
     ];
-    sheet_data = [
-        header,
+    sheet_data = [header,];
 
-    ];
+    // default number of row to start with
     for (let i=1; i <= 300; i++){
         sheet_data.push(['', '', '', '', '', '',  '', '',
             ''  , '', '', '', '', i])
     }
-
 }
 
 
-const container = document.getElementById('example');
+const container = document.getElementById('the_sheet');
 const hot = new Handsontable(container, {
     data: sheet_data,
-    // rowHeaders: true,
-    // colHeaders: true,
     contextMenu: true,
     manualRowMove: true,
     bindRowsWithHeaders: 'strict',

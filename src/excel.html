@@ -1,34 +1,32 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title></title>
+    <title>Corset</title>
+
     <script src="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="style/excel.css">
 </head>
+
 <body>
-<form id="excel" action="excel.html" method="get" style="display: none;">
-    <input type="submit" value="Submit" >
-</form>
+    <form id="excel" action="excel.html" method="get" >
+        <input type="submit" value="Submit">
+    </form>
 
-<button style="padding: 5px 5px ; margin: 5px 5px;" id="clear_all">Clear All</button>
+    <button id="clear_all">Clear All</button>
 
-<div id="example"></div>
+    <div id="the_sheet"></div>
 
-<form id="print_pdf" action="print.html" method="get" style="display: none;">
-    <input id="num" name="num" value="hello">
-    <input type="submit" value="Submit" >
-</form>
+    <form id="print_pdf" action="print.html" method="get">
+        <input id="num" name="num" value="hello">
+        <input type="submit" value="Submit">
+    </form>
 
-<script type="module" src="excel.js">
-
-
-
-</script>
+    <script type="module" src="excel.js"></script>
 
 </body>
 </html>

@@ -1,0 +1,117 @@
+html {
+    margin: 0;
+    padding: 0;
+    background: whitesmoke;
+}
+
+.container {
+    margin: auto;
+    width: 50%;
+    background: #f5f5f5;
+
+}
+
+.header {
+    border:  3px solid black;
+    width: 87.5%;
+    margin: auto;
+    text-decoration: underline;
+    text-align: center;
+    color: black;
+    font-weight: bold;
+    font-size: 30pt;
+    padding: 10px;
+    background: #d6d6d6;
+    border-radius: 5px;
+}
+
+.header img{
+    width: 50px;
+    vertical-align:middle;
+    display: inline;
+}
+
+.box {
+    border: 3px solid black;
+    width: 90%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    flex-wrap: wrap;
+    background: #d6d6d6;
+    border-radius: 5px;
+}
+
+.left, .right {
+    padding: 10px;
+    overflow: hidden;
+    word-wrap: break-word;
+}
+
+.left  {
+    border-left: 2px solid black;
+}
+
+.right {
+    border-right: 2px solid black;
+
+}
+
+
+table {
+    border:  3px solid black;
+    width: 90.88%;
+    margin: auto;
+    text-align: center;
+    background: #d6d6d6;
+    border-radius: 5px;
+}
+
+.warning {
+    border:  3px solid black;
+    width: 87.5%;
+    margin: auto;
+    text-decoration: underline;
+    text-align: center;
+    color: red;
+    font-weight: bold;
+    font-size: 20pt;
+    padding: 10px;
+    background: #d6d6d6;
+    border-radius: 5px;
+}
+
+.button {
+    display: block;
+    margin: 20px auto auto;
+    padding: 10px;
+    width: 100%;
+    color: white;
+    font-weight: bold;
+    font-size: 20pt;
+    border-radius: 30px;
+    cursor:pointer;
+
+}
+
+
+
+.print-button {
+    background: #5cb85c;
+}
+
+.print-button:hover {
+    background: whitesmoke;
+    color: green;
+}
+
+.back-button {
+    background: gray;
+}
+
+.back-button:hover {
+    background: whitesmoke;
+    color: gray;
+}
+
+
