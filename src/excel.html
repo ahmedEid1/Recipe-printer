@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="style/excel.css">
+    <link rel="stylesheet" href="static/style/excel.css">
 </head>
 
 <body>
@@ -22,10 +22,11 @@
     <div id="the_sheet"></div>
 
     <form id="print_pdf" action="print.html" method="get">
-        <input id="num" name="num" value="hello">
+        <input id="num" name="num" value="">
         <input type="submit" value="Submit">
     </form>
 
+    <script src="utilities.js"></script>
     <script type="module" src="excel.js"></script>
 
 </body>
